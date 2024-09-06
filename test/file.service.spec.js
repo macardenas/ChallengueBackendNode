@@ -1,12 +1,12 @@
-import assert from 'assert'
-import * as chai from 'chai'
-import { DownloadFiles, FormatFile, ListFiles } from '../src/services/file.service.js'
-import { getFiles } from '../src/controllers/file.controller.js'
+// import { expect } from 'chai';
+// //const chai = require('chai')
+import chai, { expect } from 'chai';
+import { DownloadFiles, fetchDataParams, ListFiles } from '../src/services/file.service.js'
+// import { getFiles } from '../src/controllers/file.controller.js'
 
-
-const expect = chai.expect; 
 
 describe('File Service',() =>{
+
     it('List Files',(done) =>{
         ListFiles()
         .then((response)=>{
@@ -39,6 +39,24 @@ describe('File Service',() =>{
         DownloadFiles({ filess:[]})
         .then((response)=>{
             expect(response).to.eq("Debe proporcionar datos para proporcionar tu solicitud")
+            done();
+        })
+        .catch((done))
+    })
+
+    it('fetchDataParams string params',(done) =>{
+        fetchDataParams('test18.csv')
+        .then((response)=>{
+            expect(response).to.be.a('array');
+            done();
+        })
+        .catch((done))
+    })
+
+    it('fetchDataParams string incorrect params',(done) =>{
+        fetchDataParams('test1000.csv')
+        .then((response)=>{
+            expect(response).to.be.a('array').length(0);
             done();
         })
         .catch((done))

@@ -65,7 +65,28 @@ const fetchData = async (files) => {
   } catch (error) {
     throw new Error(error);
   }
+};
 
+//Busco los datos y espero a que termine con todos los archivos
+export const fetchDataParams = async (files) => {
+  try {
+      const resp = await fetch('https://echo-serv.tbxnet.com/v1/secret/file/' + files, {
+        'Content-Type': 'application/json',
+        headers: { Authorization: 'Bearer aSuperSecretKey' }
+      });
+
+      if (resp.ok) {
+        const json = await resp.text();
+        const response = FormatFile(json);
+        if (response.length == 0) return ('404 not found')
+        return response
+      }
+      return [];
+
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
 };
 
 /*
