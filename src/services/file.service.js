@@ -2,20 +2,20 @@ import fetch from "node-fetch";
 
 //Obtengo la lista de arachivos
 export const ListFiles = async () => {
-    try {
-      let resp = await fetch('https://echo-serv.tbxnet.com/v1/secret/files', {
-        'Content-Type': 'application/json',
-        headers: { Authorization: 'Bearer aSuperSecretKey' }
-      })
+  try {
+    let resp = await fetch('https://echo-serv.tbxnet.com/v1/secret/files', {
+      'Content-Type': 'application/json',
+      headers: { Authorization: 'Bearer aSuperSecretKey' }
+    })
 
-      if(!resp.ok) throw new Error('Peticion no exitosa');
-      let json = await resp.json();
-      return json;
+    if (!resp.ok) throw new Error('Peticion no exitosa');
+    let json = await resp.json();
+    return json;
 
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 /*
@@ -35,7 +35,7 @@ export const DownloadFiles = (file) => {
         throw new Error(error);
       }
 
-    }else{
+    } else {
       resolve('Debe proporcionar datos para proporcionar tu solicitud');
     }
 
@@ -70,18 +70,18 @@ const fetchData = async (files) => {
 //Busco los datos y espero a que termine con todos los archivos
 export const fetchDataParams = async (files) => {
   try {
-      const resp = await fetch('https://echo-serv.tbxnet.com/v1/secret/file/' + files, {
-        'Content-Type': 'application/json',
-        headers: { Authorization: 'Bearer aSuperSecretKey' }
-      });
+    const resp = await fetch('https://echo-serv.tbxnet.com/v1/secret/file/' + files, {
+      'Content-Type': 'application/json',
+      headers: { Authorization: 'Bearer aSuperSecretKey' }
+    });
 
-      if (resp.ok) {
-        const json = await resp.text();
-        const response = FormatFile(json);
-        if (response.length == 0) return ('404 not found')
-        return response
-      }
-      return [];
+    if (resp.ok) {
+      const json = await resp.text();
+      const response = FormatFile(json);
+      if (response.length == 0) return [];
+      return response
+    }
+    return [];
 
   } catch (error) {
     console.error(error);
@@ -113,9 +113,9 @@ export const FormatFile = (csv) => {
       const isNumber = !isNaN(number);
 
       //En este caso no tomo en cuenta la logintud o si el hex es valido, sin embargo dejo el codigo por un futuro uso (Ya que en las instrucciones no indica que valide especificamente)
-     // const isHex = /^[0-9a-fA-F]+$/.test(hex); && isHex
+      // const isHex = /^[0-9a-fA-F]+$/.test(hex); && isHex
 
-     //Valido si ninguno esta vacio
+      //Valido si ninguno esta vacio
       if (isNumber && file && text && hex) {
         if (validRows.length == 0) {
           validRows.push({
