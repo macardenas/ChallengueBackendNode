@@ -26,7 +26,6 @@ const ListFilesC = async (req, res) => {
 const SearchFile = async (req, res) => {
     try {
         const response = await fetchDataParams(req.params.namefile);
-        console.log(response);
         if(!response || response.length == 0) return handleHttp(res, 'NOT_FOUND',response)
         handleHttp(res, 'SUCCESS',response)
     } catch (error) {
